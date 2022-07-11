@@ -49,10 +49,13 @@
 
                 <div class="col-sm">
                     <form method="POST" class="form-scan">
-                        <div class="form-group">
+                        <div class="input-group">
                             <input type="hidden" name="tnkb" id="tnkb" value="<?= $_GET['tnkb']; ?>" class="form-control" readonly>
                             <select name="serno" id="select_serno" class="form-control" required>
                             </select>
+                            <div class="input-group-append">
+                                <button class="btn btn-info" onclick="getScan('po');" type="button"><i class="fa fa-qrcode"></i></button>
+                            </div>
                             <div class="form-group">
                                 <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
                                 <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>

@@ -51,7 +51,7 @@ if (isset($_POST['login'])) {
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
     <title>Packing System</title>
-	<link rel="icon" type="image/png" href="./assets/img/favicon.png" />
+    <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="./assets/bootstrap/css/bootstrap.min.css">
 
@@ -116,14 +116,14 @@ if (isset($_POST['login'])) {
             <div class="text-center mb-3">
                 <img src="./assets/img/logo.png" width="275px"></img>
             </div>
-            <h4 class="text-center font-weight-bold mb-3">LOGIN</h4>
+            <h4 class="text-center font-weight-bold mb-3">LOG IN</h4>
             <div class="form-group">
                 <input type="text" name="email" class="form-control" placeholder="Email or Username" required="required">
             </div>
             <div class="form-group">
                 <input type="password" name="password" id="password" class="form-control" placeholder="Password" required="required">
             </div>
-			<div class="form-group">
+            <div class="form-group">
                 <input type="checkbox" class="show_password" onclick="showPassword()"> Show password
             </div>
             <div class="form-group">
@@ -139,19 +139,19 @@ if (isset($_POST['login'])) {
 
 </body>
 
-	<!-- jQuery -->
-    <script src="./assets/jquery-3.4.1.min.js"></script>
-    <!-- Bootstrap -->
-    <script src="./assets/bootstrap/js/bootstrap.min.js"></script>
-	<script>
-		function showPassword(){
-			var x = document.getElementById("password");
-			if (x.type === "password") {
-				x.type = "text";
-			} else {
-				x.type = "password";
-			}
-		}
-	</script>
+<!-- jQuery -->
+<script src="./assets/jquery-3.4.1.min.js"></script>
+<!-- Bootstrap -->
+<script src="./assets/bootstrap/js/bootstrap.min.js"></script>
+<script>
+    function showPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
 
 </html>
