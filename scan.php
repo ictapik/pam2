@@ -144,8 +144,8 @@
       <form method="POST" class="form-horizontal">
         <div class="modal-body">
 
-          <input type="text" name="hapus_id" id="hapus_id" value="" readonly>
-          <input type="text" name="serno" id="serno" value="" readonly>
+          <input type="hidden" name="hapus_id" id="hapus_id" value="" readonly>
+          <input type="hidden" name="serno" id="serno" value="" readonly>
 
           <!-- <div class="alert alert-danger"> -->
           <h6>Yakin akan menghapus data?</h6>
