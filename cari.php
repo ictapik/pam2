@@ -2,6 +2,7 @@
 require_once "connect.php";
 
 $serno = $_POST['serno'];
+// $serno = "E200001D9212007711003092";
 
 $stid = oci_parse($conn, "SELECT M_PRODUCTASSET_ID, M_PRODUCT_ID FROM M_PRODUCTASSET WHERE SERNO = '$serno'");
 
