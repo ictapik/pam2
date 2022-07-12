@@ -7,6 +7,17 @@
   h4 {
     right: 50%;
   }
+
+  .input-group>.select2-container--bootstrap {
+    width: auto;
+    flex: 1 1 auto;
+  }
+
+  .input-group>.select2-container--bootstrap .select2-selection--single {
+    height: 100%;
+    line-height: inherit;
+    padding: 0.5rem 1rem;
+  }
 </style>
 
 <div class="container">
@@ -44,37 +55,27 @@
       <div class="row">
         <div class="col-sm">
 
-          <h2 class="text-center text-primary font-weight-bold border" style="font-size:50px" id="jumlah-scan">Loading...</h2>
+          <h2 class="text-center text-primary font-weight-bold border" id="jumlah-scan">Loading...</h2>
 
         </div>
 
         <div class="col-sm">
 
-          <!-- <div class="row justify-content-center">
-                        <div class="col-sm"> -->
           <form method="POST" class="form-scan">
-            <!-- <div class="form-group"> -->
+
             <input type="hidden" name="tnkb" value="<?= $_GET['tnkb']; ?>" class="form-control" readonly>
             <input type="hidden" name="m_inout_id" value="<?= $_GET['m_inout_id']; ?>" class="form-control" readonly>
-            <!-- </div> -->
-            <div class="input-group">
+            <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
+            <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>
+
+            <div class="input-group mb-3">
               <select name="serno" id="select_serno" class="form-control" required>
               </select>
               <div class="input-group-append">
-                <button class="btn btn-info" onclick="getScan();" type="button"><i class="fa fa-qrcode"></i></button>
-              </div>
-              <div class="form-group">
-                <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
-                <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>
+                <button class="btn btn-primary" onclick="getScan();" type="button"><i class="fa fa-qrcode"></i></button>
               </div>
             </div>
           </form>
-          <!-- <p class="text-center">
-                        <button id="simpan" class="btn btn-success">SIMPAN</button>
-                    </p> -->
-          <!-- </div>
-                    </div> -->
-
         </div>
 
         <div class="col-sm">
