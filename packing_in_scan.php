@@ -7,6 +7,17 @@
   h4 {
     right: 50%;
   }
+
+  .input-group>.select2-container--bootstrap {
+    width: auto;
+    flex: 1 1 auto;
+  }
+
+  .input-group>.select2-container--bootstrap .select2-selection--single {
+    height: 100%;
+    line-height: inherit;
+    padding: 0.5rem 1rem;
+  }
 </style>
 
 <div class="container">
@@ -33,8 +44,6 @@
   </div>
   <hr>
 
-
-
   <?php
   $tnkb = $_GET['tnkb'];
   ?>
@@ -49,18 +58,18 @@
 
         <div class="col-sm">
           <form method="POST" class="form-scan">
-            <div class="input-group">
-              <input type="hidden" name="tnkb" id="tnkb" value="<?= $_GET['tnkb']; ?>" class="form-control" readonly>
-              <select name="serno" id="select_serno" class="form-control" required>
-              </select>
+
+            <input type="hidden" name="tnkb" id="tnkb" value="<?= $_GET['tnkb']; ?>" class="form-control" readonly>
+            <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
+            <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>
+
+            <div class="input-group mb-3">
+              <select name="serno" class="form-control" id="select_serno" required></select>
               <div class="input-group-append">
-                <button class="btn btn-info" onclick="getScan();" type="button"><i class="fa fa-qrcode"></i></button>
-              </div>
-              <div class="form-group">
-                <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
-                <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>
+                <button class="btn btn-primary" onclick="getScan();" type="button"><i class="fa fa-qrcode"></i></button>
               </div>
             </div>
+
           </form>
         </div>
 
