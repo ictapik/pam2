@@ -36,6 +36,13 @@
     ?>
 
     <div class="position-absolute buttons">
+      <select name="rfid" class="form-control form-control-sm">
+        <option value="">--RFID--</option>
+        <option value="All">All</option>
+        <?php for ($i = 1; $i <= 5; $i++) : ?>
+          <option value="RFID <?= $i; ?>">RFID <?= $i; ?></option>
+        <?php endfor; ?>
+      </select>
       <span class='switch custom-control custom-switch'>
         <input type='checkbox' data-value='' class='custom-control-input' id='auto_scan_switch' <?= $auto_scan_in == "true" ? "checked" : "" ?>>
         <label class=' custom-control-label' for='auto_scan_switch'>Auto Scan</label>
@@ -436,30 +443,36 @@
 
     function autoScan() {
       let tnkb, m_productasset_id, m_product_id;
+      rfid = $("[name='rfid']").val();
 
       //cek tombol/switch auto scan apakah on atau off
       //tombol/switch ada di page packing out (bagian atas)
       //START CODE HERE
       if (auto_scan == "true") {
 
-        tnkb = $("[name='tnkb']").val();
+        if (rfid == "") {
+          alert('Pilih RFID');
+        } else {
+          tnkb = $("[name='tnkb']").val();
 
-        $.ajax({
-          type: 'POST',
-          url: 'packing_in_scan_rfid.php',
-          data: {
-            tnkb: tnkb
-          },
-          async: true,
-          dataType: 'json',
-          success: function(data) {
-            tampil_scan();
-            console.log('[' + count_auto_scan++ + '] ' + 'auto scan is running...');
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText);
-          }
-        });
+          $.ajax({
+            type: 'POST',
+            url: 'packing_in_scan_rfid.php',
+            data: {
+              tnkb: tnkb,
+              rfid: rfid
+            },
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+              tampil_scan();
+              console.log('[' + count_auto_scan++ + '] ' + 'auto scan on RFID (' + rfid + ') is running...');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(jqXHR.responseText);
+            }
+          });
+        }
       } else {
         console.log('[' + count_auto_scan++ + '] ' + 'auto scan off');
       }

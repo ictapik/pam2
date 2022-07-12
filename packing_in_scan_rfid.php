@@ -20,53 +20,59 @@
 require_once "connect.php";
 
 $tnkb  = $_POST['tnkb'];
+$rfid  = $_POST['rfid'];
+
+if ($rfid == "All") {
+  $rfid = "RFID";
+}
 
 //RFID 2 = Packing In
 $stid = oci_parse(
-    $conn,
-    "SELECT a.SERNO, a.DEVICENAME
+  $conn,
+  "SELECT a.SERNO, a.DEVICENAME
     FROM RFID_INVENTORY a
     JOIN M_PRODUCTASSET b ON b.SERNO = a.SERNO
     WHERE b.MOVEMENTTYPE = 'C-'
 	AND b.ISACTIVE = 'Y'
-    AND a.SERNO NOT IN (SELECT SERNO FROM M_PRODUCTASSET_LOAD)"
+    AND a.SERNO NOT IN (SELECT SERNO FROM M_PRODUCTASSET_LOAD)
+    AND DEVICENAME LIKE '%$rfid%'"
 );
 oci_execute($stid);
 
 while ($row = oci_fetch_assoc($stid)) {
 
-    $serno = $row['SERNO'];
-    $devicename = $row['DEVICENAME'];
+  $serno = $row['SERNO'];
+  $devicename = $row['DEVICENAME'];
 
-    $stid2 = oci_parse($conn, "SELECT M_PRODUCTASSET_ID, M_PRODUCT_ID FROM M_PRODUCTASSET WHERE SERNO = '$serno'");
-    oci_execute($stid2);
+  $stid2 = oci_parse($conn, "SELECT M_PRODUCTASSET_ID, M_PRODUCT_ID FROM M_PRODUCTASSET WHERE SERNO = '$serno'");
+  oci_execute($stid2);
 
-    while ($row = oci_fetch_assoc($stid2)) {
-        // $res[] = $row;
+  while ($row = oci_fetch_assoc($stid2)) {
+    // $res[] = $row;
 
-        $m_productasset_id  = $row['M_PRODUCTASSET_ID'];
-        $m_product_id       = $row['M_PRODUCT_ID'];
+    $m_productasset_id  = $row['M_PRODUCTASSET_ID'];
+    $m_product_id       = $row['M_PRODUCT_ID'];
 
-        $stid3 = oci_parse(
-            $conn,
-            "INSERT INTO M_PRODUCTASSET_LOAD
+    $stid3 = oci_parse(
+      $conn,
+      "INSERT INTO M_PRODUCTASSET_LOAD
             (M_PRODUCTASSET_LOAD_ID, AD_CLIENT_ID, AD_ORG_ID, CREATED, CREATEDBY, M_PRODUCTASSET_ID, 
             M_PRODUCT_ID, SERNO, UPDATED, UPDATEDBY, MOVEMENTTYPE, MOVEMENTDATE, TNKB, DEVICENAME) 
             VALUES 
             (M_PRODUCTASSET_LOG_SEQ.NEXTVAL, 1000000, 0, sysdate, 100, '$m_productasset_id', 
             '$m_product_id', '$serno', sysdate, 100,'C+', sysdate, '$tnkb', '$devicename')"
-        );
+    );
 
-        oci_execute($stid3);
+    oci_execute($stid3);
 
-        // oci_free_statement($stid);
+    // oci_free_statement($stid);
 
-        /**
-         * SIMPAN DATA DISINI
-         */
-    }
+    /**
+     * SIMPAN DATA DISINI
+     */
+  }
 }
 
 echo json_encode(array(
-    "status" => true
+  "status" => true
 ));
