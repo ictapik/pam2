@@ -36,6 +36,13 @@
     ?>
 
     <div class="position-absolute buttons">
+      <select name="rfid" class="form-control form-control-sm">
+        <option value="">--RFID--</option>
+        <option value="All">All</option>
+        <?php for ($i = 1; $i <= 5; $i++) : ?>
+          <option value="RFID <?= $i; ?>">RFID <?= $i; ?></option>
+        <?php endfor; ?>
+      </select>
       <span class='switch custom-control custom-switch'>
         <input type='checkbox' data-value='' class='custom-control-input' id='auto_scan_switch' <?= $auto_scan_out == "true" ? "checked" : "" ?>>
         <label class=' custom-control-label' for='auto_scan_switch'>Auto Scan</label>
@@ -54,20 +61,15 @@
 
       <div class="row">
         <div class="col-sm">
-
           <h2 class="text-center text-primary font-weight-bold border" id="jumlah-scan">Loading...</h2>
-
         </div>
 
         <div class="col-sm">
-
           <form method="POST" class="form-scan">
-
             <input type="hidden" name="tnkb" value="<?= $_GET['tnkb']; ?>" class="form-control" readonly>
             <input type="hidden" name="m_inout_id" value="<?= $_GET['m_inout_id']; ?>" class="form-control" readonly>
             <input type="hidden" name="m_productasset_id" id="m_productasset_id" class="form-control" readonly>
             <input type="hidden" name="m_product_id" id="m_product_id" class="form-control" readonly>
-
             <div class="input-group mb-3">
               <select name="serno" id="select_serno" class="form-control" required>
               </select>
@@ -421,7 +423,6 @@
       $('#ModalFinish').modal('show');
       $('[name="finish_id"]').val(finish_id);
       $('[name="finish_movemntdate"]').val(finish_movemntdate);
-
     });
 
     // Proses finish loading
@@ -474,32 +475,38 @@
 
     function autoScan() {
       let tnkb, m_inout_id, m_productasset_id, m_product_id;
+      rfid = $("[name='rfid']").val();
 
       //cek tombol/switch auto scan apakah on atau off
       //tombol/switch ada di page packing out (bagian atas)
       //START CODE HERE
       if (auto_scan == "true") {
 
-        tnkb = $("[name='tnkb']").val();
-        m_inout_id = $("[name='m_inout_id']").val();
+        if (rfid == "") {
+          alert('Pilih RFID');
+        } else {
+          tnkb = $("[name='tnkb']").val();
+          m_inout_id = $("[name='m_inout_id']").val();
 
-        $.ajax({
-          type: 'POST',
-          url: 'scan_rfid.php',
-          data: {
-            tnkb: tnkb,
-            m_inout_id: m_inout_id
-          },
-          async: true,
-          dataType: 'json',
-          success: function(data) {
-            tampil_scan();
-            console.log('[' + count_auto_scan++ + '] ' + 'auto scan is running...');
-          },
-          error: function(jqXHR, textStatus, errorThrown) {
-            console.log(jqXHR.responseText);
-          }
-        });
+          $.ajax({
+            type: 'POST',
+            url: 'scan_rfid.php',
+            data: {
+              tnkb: tnkb,
+              m_inout_id: m_inout_id,
+              rfid: rfid
+            },
+            async: true,
+            dataType: 'json',
+            success: function(data) {
+              tampil_scan();
+              console.log('[' + count_auto_scan++ + '] ' + 'auto scan on RFID (' + rfid + ') is running...');
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+              console.log(jqXHR.responseText);
+            }
+          });
+        }
 
       } else {
         console.log('[' + count_auto_scan++ + '] ' + 'auto scan off');

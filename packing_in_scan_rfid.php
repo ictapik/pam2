@@ -26,14 +26,13 @@ if ($rfid == "All") {
   $rfid = "RFID";
 }
 
-//RFID 2 = Packing In
 $stid = oci_parse(
   $conn,
   "SELECT a.SERNO, a.DEVICENAME
-    FROM RFID_INVENTORY a
-    JOIN M_PRODUCTASSET b ON b.SERNO = a.SERNO
-    WHERE b.MOVEMENTTYPE = 'C-'
-	AND b.ISACTIVE = 'Y'
+  FROM RFID_INVENTORY a
+  JOIN M_PRODUCTASSET b ON b.SERNO = a.SERNO
+  WHERE b.MOVEMENTTYPE = 'C-'
+	  AND b.ISACTIVE = 'Y'
     AND a.SERNO NOT IN (SELECT SERNO FROM M_PRODUCTASSET_LOAD)
     AND DEVICENAME LIKE '%$rfid%'"
 );
@@ -48,7 +47,6 @@ while ($row = oci_fetch_assoc($stid)) {
   oci_execute($stid2);
 
   while ($row = oci_fetch_assoc($stid2)) {
-    // $res[] = $row;
 
     $m_productasset_id  = $row['M_PRODUCTASSET_ID'];
     $m_product_id       = $row['M_PRODUCT_ID'];
@@ -64,12 +62,6 @@ while ($row = oci_fetch_assoc($stid)) {
     );
 
     oci_execute($stid3);
-
-    // oci_free_statement($stid);
-
-    /**
-     * SIMPAN DATA DISINI
-     */
   }
 }
 
