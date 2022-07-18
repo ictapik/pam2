@@ -85,10 +85,10 @@ $html .= "
     <td rowspan='5'></td>
     <th rowspan='5' width='150px' style='text-align:center; font-size:11px' valign='top'>
       <img src='" . $base64 . "' width='130px'><br>
-      PT. ADYAWINSA PLASTICS INDUSTRIES KARAWANG
+      PT. ADYAWINSA PLASTICS INDUSTRY
     </th>    
   </tr>
-  <tr>
+  <tr>s
     <th width='60px'>DN NO</th>
     <td>: " . $row_header['DOCUMENTNO'] . "</td>
   </tr>
@@ -152,7 +152,7 @@ foreach ($tags as $key => $value) {
 
   $html .= "<td style='text-align:center'>" . count($tags[$key]) . "</td>";
 
-  $html .= "<td>" . implode(", ", $tags[$key]) . "</td>";
+  $html .= "<td style='font-size:10px'>" . implode(", ", $tags[$key]) . "</td>";
 
   $html .= "</tr>";
 
