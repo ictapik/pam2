@@ -26,6 +26,15 @@
     <h4 class="w-100 text-center font-weight-bold">PACKING OUT</h4>
 
     <?php
+    //selalu matiakn auto scan ketika pertama kali load halaman
+    $sqlAutoscanOff = oci_parse(
+      $conn,
+      "UPDATE rfid_parameter SET value = 'false'
+      WHERE parameter = 'auto_scan_out'"
+    );
+    oci_execute($sqlAutoscanOff);
+
+    //ambil status auto scan
     $stid = oci_parse(
       $conn,
       "SELECT * FROM RFID_PARAMETER WHERE parameter = 'auto_scan_out'"
