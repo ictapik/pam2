@@ -597,6 +597,7 @@ if (isset($_GET['serno'])) {
     var changingHash = false;
 
     function onbarcode(event) {
+        alert('onbarcode');
         switch (event.type) {
             case "hashchange": {
                 if (changingHash == true) {
@@ -660,6 +661,7 @@ if (isset($_GET['serno'])) {
     }
 
     function findbc(id) { //SEPERTINYA TIDAK TERPAKAI
+        alert('tampil modal');
         $('#modal_form').modal('show');
     }
 </script>
