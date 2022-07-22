@@ -39,24 +39,11 @@
         <th class="text-center" data-priority="1">NAME</th>
         <th class="text-center">SERNO</th>
         <th class="text-center" data-priority="2">TYPE</th>
-        <th class="text-center">ISACTIVE</th>
+        <th class="text-center" data-priority="4">ISACTIVE</th>
         <th class="text-center">LAST TRX</th>
         <?= $_SESSION['isadmin'] == true ? '<th class="text-center notexport" data-priority="3"></th>' : '<th></th>'; ?>
       </tr>
     </thead>
-    <tbody>
-
-    </tbody>
-    <tfoot>
-      <tr class="table-primary">
-        <th class="text-center">NAME</th>
-        <th class="text-center">SERNO</th>
-        <th class="text-center">TYPE</th>
-        <th class="text-center">ISACTIVE</th>
-        <th class="text-center">LAST TRX</th>
-        <th class="text-center">ACTION</th>
-      </tr>
-    </tfoot>
   </table>
   <!-- </div> -->
 
@@ -218,7 +205,7 @@ if (isset($_GET['serno'])) {
           render: function(data, type, row) {
             var packing_id = "<?= $value; ?>";
             var status = "<?= $_GET['status']; ?>";
-            return data.name + '<br><a href="index.php?page=log_assets&status=' + status + '&packingid=' + packing_id + '&serno=' + data.serno + '&name=' + row.name + '">' + data.serno.substring(0, 10) + '...</a>';
+            return '<a href="index.php?page=log_assets&status=' + status + '&packingid=' + packing_id + '&serno=' + data.serno + '&name=' + row.name + '">' + row.name + '</a>';
           }
         },
         {
