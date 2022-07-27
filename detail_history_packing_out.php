@@ -3,10 +3,10 @@
     <?php
     $m_inout_id = $_GET['m_inout_id'];
 
-    $stid = oci_parse($conn, "SELECT documentno, name, tnkb, TO_CHAR(movementdate, 'DD MON YYYY') AS movementdate
+    $stid = oci_parse($conn, "SELECT documentno, name, NVL(tnkb, '-') AS tnkb, TO_CHAR(movementdate, 'DD MON YYYY') AS movementdate
     From M_inOut mio
     JOIN C_BPartner cbp ON mio.C_BPartner_ID = cbp.C_BPartner_ID
-    WHERE M_InOut_ID = '$m_inout_id'");
+    WHERE M_InOut_ID = $m_inout_id");
 
     // Perform the logic of the query
     oci_execute($stid);
